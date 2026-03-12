@@ -1,27 +1,17 @@
 
 
 import logging
-
-
 import numpy as np
-
 import torch
-
 import torch.nn as nn
-
 import torch.nn.functional as F
-
 from torch import Tensor
 
 
 try:
-
     import pywt
-
 except ImportError:  
-
     pywt = None
-
 
 logger = logging.getLogger(__name__)
 
@@ -30,102 +20,46 @@ class WaveClipEncoder(nn.Module):
 
 
     def __init__(
-
         self,
-
         clip_model_name: str = "ViT-B-14",
-
         pretrained: str = "openai",
-
         K: int = 3,
-
         wavelet: str = "db1",
-
         use_ll: bool = True,
-
-        D_clip: int = 512,
-
-        D_hidden: int = 512,
-
+        D_clip: int = 540,
+        D_hidden: int = 540,
         P: int = 14,
 
     ):
 
         super().__init__()
-
         self.K = K
-
         self.wavelet = wavelet
-
         self.use_ll = use_ll
-
         self.D_clip = D_clip
-
         self.P = P
-
-
-        
-
         import open_clip
-
         self.clip, _, self.clip_preprocess = open_clip.create_model_and_transforms(
-
             clip_model_name, pretrained=pretrained
-
         )
-
         self.clip.eval()
-
         for p in self.clip.parameters():
-
             p.requires_grad_(False)
-
-
-        
-
-        
-
         n_bands = 3 * K + (1 if use_ll else 0)
-
         n_channels_in = n_bands * 3  
-
-
-        
-
         self.W1 = nn.Conv2d(n_channels_in, D_hidden, kernel_size=1)
 
         self.W2 = nn.Conv2d(D_hidden, D_clip, kernel_size=1)
 
-
-        
-
         self.gate_conv = nn.Conv2d(2 * D_clip, D_clip, kernel_size=3, padding=1)
 
-
     def _extract_clip_features(self, frame: Tensor) -> Tensor:
-
         x = F.interpolate(frame.unsqueeze(0), size=(224, 224), mode="bilinear", align_corners=False)
-
-        with torch.no_grad():
-
-            
+        with torch.no_grad():      
 
             tokens = self.clip.encode_image(x)
-
-            
-
-            
-
             visual = self.clip.visual
-
             x_vis = visual(x)
-
-
-        
-
-        
-
-        
 
         return self._clip_patch_tokens(frame)
 
