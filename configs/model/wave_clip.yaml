@@ -1,0 +1,10 @@
+# WaveCLIP encoder configuration
+clip_model: "ViT-B-14"   # open_clip format (dashes, not slashes)
+K: 3                      # SWT decomposition levels
+wavelet: "db1"            # Wavelet family
+use_ll: true              # Include coarsest LL approximation band
+D_clip: 512               # CLIP feature dimension
+D_hidden: 512             # MLP hidden dimension for wavelet projection
+P: 14                     # CLIP spatial grid (14x14 for ViT-B/14 at 224px)
+D_sty: 1024               # Style encoder output dimension
+P_sty: 8                  # Style spatial grid

@@ -1,0 +1,3 @@
+checkpoint: "weights/raft-things.pth"
+iters: 20
+small: false

@@ -1,0 +1,3 @@
+# Attention infrastructure backend routing.
+# Choices: auto, flash, xformers, sdpa, manual
+backend: auto

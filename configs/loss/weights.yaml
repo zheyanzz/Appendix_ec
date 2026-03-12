@@ -1,0 +1,16 @@
+# Loss weights for L_total = L_denoise + λ_saml*L_SAML + λ_style*L_style
+#                           + λ_contrast*L_contrast + λ_tstm*L_TSTM
+lambda_saml: 0.1
+lambda_style: 0.01
+lambda_contrast: 0.1
+lambda_tstm: 1.0
+
+# Auxiliary losses (style, contrastive, TSTM) are computed every N steps
+# to save memory and compute (they require VAE decode or CLIP forward)
+auxiliary_loss_freq: 4
+
+# Style loss: multi-scale Gram matrix layers in CLIP ViT
+style_loss_layers: [4, 8, 12, 16]
+
+# Contrastive loss: temperature parameter
+contrastive_tau: 0.07

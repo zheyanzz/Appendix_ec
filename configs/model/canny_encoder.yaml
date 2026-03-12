@@ -1,0 +1,4 @@
+canny_low: 50
+canny_high: 150
+channels: [1, 32, 64, 16]
+strides: [[1, 2, 2], [2, 2, 2], [2, 2, 2]]

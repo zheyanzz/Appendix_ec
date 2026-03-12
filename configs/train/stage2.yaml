@@ -1,0 +1,50 @@
+stage: 2
+total_steps: 62500
+batch_size: 4
+gradient_accumulation_steps: 4
+lr: 1.0e-4
+warmup_steps: 500
+weight_decay: 1.0e-2
+max_grad_norm: 1.0
+mixed_precision: "bf16"
+gradient_checkpointing: true
+
+# EMA
+use_ema: true
+ema_decay: 0.9999
+
+# Freeze/unfreeze per stage
+# Stage 2: + motion modules, SAML omega weights
+freeze_modules:
+  - "policy_classifier"
+unfreeze_modules:
+  - "wave_clip"
+  - "style_temporal_enc"
+  - "style_attn"
+  - "canny_enc"
+  - "motion_module"
+  - "saml_loss"
+
+loss_overrides:
+  lambda_tstm: 0.0
+  lambda_saml: 0.1
+  lambda_style: 0.01
+  lambda_contrast: 0.1
+
+# Data
+data:
+  content_dirs: ["data/webvid10m", "data/ucf101", "data/ucf_sports"]
+  style_dirs: ["data/wikiart", "data/journeydb"]
+  num_frames: 25
+  resolution: [480, 720]
+  video_fraction: 0.7
+  augment_style: true
+  augment_content: true
+  p_flip: 0.5
+  p_jitter: 0.3
+  p_crop: 0.5
+  crop_scale: [0.8, 1.0]
+
+# Logging
+log_every: 100
+save_every: 5000

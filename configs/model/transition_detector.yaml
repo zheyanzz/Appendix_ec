@@ -1,0 +1,7 @@
+scales: [64, 128, 224]
+alpha: 1.0
+tau: 2
+W_cls: 5
+delta_min: 10
+W_feat: 5
+hidden_dim: 32

@@ -1,0 +1,19 @@
+# Inference configuration for QuadStyle
+checkpoint: "weights/quadstyle.ckpt"
+num_steps: 50
+guidance_scale: 7.5
+height: 480
+width: 720
+num_frames: 25
+device: "cuda"
+flow_backend: "raft"
+
+# Use EMA weights for inference (if available in checkpoint)
+use_ema: true
+
+# VAE tiling for memory efficiency (split spatial/temporal during decode)
+vae_tiling: false
+
+# Output settings
+output_fps: 16
+output_format: "mp4"
