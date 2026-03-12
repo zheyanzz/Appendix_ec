@@ -9,13 +9,9 @@ max_grad_norm: 1.0
 mixed_precision: "bf16"
 gradient_checkpointing: true
 
-# EMA
 use_ema: true
 ema_decay: 0.9999
 
-# Freeze/unfreeze per stage
-# Stage 1: train style modules only (wave_clip adapters, style_temporal_enc, style_attn)
-# Frozen: motion modules, TSTM policy classifier, DiT backbone
 freeze_modules:
   - "motion_module"
   - "policy_classifier"
@@ -32,7 +28,6 @@ loss_overrides:
   lambda_contrast: 0.1
   lambda_style: 0.01
 
-# Data
 data:
   content_dirs: ["data/laion_aesthetics", "data/imagenet"]
   style_dirs: ["data/wikiart", "data/journeydb"]

@@ -13,8 +13,6 @@ gradient_checkpointing: true
 use_ema: true
 ema_decay: 0.9999
 
-# Freeze/unfreeze per stage
-# Stage 2: + motion modules, SAML omega weights
 freeze_modules:
   - "policy_classifier"
 unfreeze_modules:

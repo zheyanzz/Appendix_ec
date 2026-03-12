@@ -13,8 +13,6 @@ gradient_checkpointing: true
 use_ema: true
 ema_decay: 0.9999
 
-# Freeze/unfreeze per stage
-# Stage 4: all modules trainable, fine-tuning at lower LR
 freeze_modules: []
 unfreeze_modules:
   - "wave_clip"

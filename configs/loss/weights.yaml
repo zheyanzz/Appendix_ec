@@ -1,9 +1,9 @@
 # Loss weights for L_total = L_denoise + λ_saml*L_SAML + λ_style*L_style
 #                           + λ_contrast*L_contrast + λ_tstm*L_TSTM
-lambda_saml: 0.1
-lambda_style: 0.01
-lambda_contrast: 0.1
-lambda_tstm: 1.0
+lambda_saml: 0.376
+lambda_style: 0.060
+lambda_contrast: 0.32
+lambda_tstm: 0.35
 
 # Auxiliary losses (style, contrastive, TSTM) are computed every N steps
 # to save memory and compute (they require VAE decode or CLIP forward)

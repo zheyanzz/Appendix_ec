@@ -13,8 +13,6 @@ gradient_checkpointing: true
 use_ema: true
 ema_decay: 0.9999
 
-# Freeze/unfreeze per stage
-# Stage 3: + TSTM policy classifier, all losses active
 freeze_modules: []
 unfreeze_modules:
   - "wave_clip"
